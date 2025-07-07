@@ -1,0 +1,227 @@
+/* --------------------------------------------------
+   Tailwind 入口
+-------------------------------------------------- */
+@config "../../../../tailwind.config.js";
+@import "tailwindcss";
+
+
+.scrollbar-none {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+.scrollbar-none::-webkit-scrollbar {
+    display: none; /* Chrome / Safari / Edge */
+}
+/* --------------------------------------------------
+   Base：全站字型
+-------------------------------------------------- */
+@layer base {
+    html {
+        font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei",
+            "sans-serif";
+    }
+}
+
+/* --------------------------------------------------
+   Components：Markdown、程式碼區塊
+-------------------------------------------------- */
+@layer components {
+
+    /* ---------- Markdown 版面 ---------- */
+    /* 預設（手機） */
+    .markdown-body {
+        @apply prose prose-base max-w-none;
+    }
+
+    /* >= md 放大排版 (直接用 @apply + 響應式前綴) */
+    .markdown-body {
+        @apply md:prose-lg;
+    }
+
+    /* 深色模式（來自 @tailwindcss/typography dark 變體） */
+    .dark .markdown-body {
+        @apply prose-dark;
+    }
+
+    /* ---------- 表格表頭 ---------- */
+    .markdown-body table thead th {
+        @apply bg-gray-100 font-semibold text-left;
+    }
+
+    .dark .markdown-body table thead th {
+        @apply bg-gray-800;
+    }
+
+    /* ---------- 程式碼外框 (pre) ---------- */
+    .markdown-body pre {
+        @apply rounded-lg px-4 py-2 m-0 overflow-auto bg-gray-100 text-base;
+    }
+
+    .dark .markdown-body pre {
+        @apply bg-gray-800;
+    }
+
+    /* --------------------------------------------------
+     Highlight.js 標記結構
+     <figure class="highlight">
+       <table>
+         <tr>
+           <td class="gutter"> 行號
+           <td class="code">   程式碼
+  -------------------------------------------------- */
+
+    .markdown-body .highlight{
+        @apply bg-gray-100 overflow-x-auto
+    }
+    /* 行號欄（gutter） */
+    .markdown-body .highlight .gutter {
+        @apply select-none text-gray-400 pr-4 border-r border-gray-300  w-[5px];
+    }
+
+    .dark .markdown-body .highlight .gutter {
+        @apply text-gray-600 border-gray-700;
+    }
+
+    .markdown-body .highlight .gutter .line {
+        @apply block text-gray-600 leading-tight text-xs md:text-sm;
+    }
+
+    /* code 本體 */
+    .markdown-body .highlight .code {
+        @apply font-mono;
+        /* 字型 */
+    }
+
+    /* 預設文字（沒有 token 類別）要夠深 */
+    .markdown-body .highlight .code,
+    .markdown-body .highlight .code .line,
+    .markdown-body .highlight .code span.line{
+        @apply text-gray-800;
+    }
+
+    .dark .markdown-body .highlight .code,
+    .dark .markdown-body .highlight .code .line {
+        @apply text-gray-100;
+    }
+
+    /* 不被 prose 改色 */
+    .markdown-body pre code {
+        @apply text-inherit;
+    }
+
+    /* 不斷行 */
+    .markdown-body .highlight .code span {
+        white-space: pre;
+    }
+
+    /* ---------- token 顏色 ---------- */
+    /* 註解 */
+    .markdown-body .highlight .comment,
+    .markdown-body .highlight .hljs-comment {
+        @apply text-gray-500 italic;
+    }
+
+    .dark .markdown-body .highlight .comment,
+    .dark .markdown-body .highlight .hljs-comment {
+        @apply text-gray-400 italic;
+    }
+
+    /* 關鍵字 / 內建 */
+    .markdown-body .highlight .keyword,
+    .markdown-body .highlight .built_in,
+    .markdown-body .highlight .control,
+    .markdown-body .highlight .selector-tag,
+    .markdown-body .highlight .hljs-keyword {
+        @apply text-indigo-600;
+    }
+
+    .dark .markdown-body .highlight .keyword,
+    .dark .markdown-body .highlight .built_in,
+    .dark .markdown-body .highlight .control,
+    .dark .markdown-body .highlight .selector-tag,
+    .dark .markdown-body .highlight .hljs-keyword {
+        @apply text-indigo-400;
+    }
+
+    /* 字串 */
+    .markdown-body .highlight .string,
+    .markdown-body .highlight .attr-value,
+    .markdown-body .highlight .subst,
+    .markdown-body .highlight .hljs-string {
+        @apply text-emerald-600;
+    }
+
+    .dark .markdown-body .highlight .string,
+    .dark .markdown-body .highlight .attr-value,
+    .dark .markdown-body .highlight .subst,
+    .dark .markdown-body .highlight .hljs-string {
+        @apply text-emerald-400;
+    }
+
+    /* 數字 / 常值 */
+    .markdown-body .highlight .number,
+    .markdown-body .highlight .literal,
+    .markdown-body .highlight .hljs-number {
+        @apply text-amber-600;
+    }
+
+    .dark .markdown-body .highlight .number,
+    .dark .markdown-body .highlight .literal,
+    .dark .markdown-body .highlight .hljs-number {
+        @apply text-amber-400;
+    }
+
+    /* 函式 / 標題 */
+    .markdown-body .highlight .function,
+    .markdown-body .highlight .title,
+    .markdown-body .highlight .hljs-title {
+        @apply text-sky-600;
+    }
+
+    .dark .markdown-body .highlight .function,
+    .dark .markdown-body .highlight .title,
+    .dark .markdown-body .highlight .hljs-title {
+        @apply text-sky-400;
+    }
+
+    /* 變數 / 屬性 */
+    .markdown-body .highlight .variable,
+    .markdown-body .highlight .attr,
+    .markdown-body .highlight .hljs-variable {
+        @apply text-rose-600;
+    }
+
+    .dark .markdown-body .highlight .variable,
+    .dark .markdown-body .highlight .attr,
+    .dark .markdown-body .highlight .hljs-variable {
+        @apply text-rose-400;
+    }
+
+    /* 標籤 / Selector / meta */
+    .markdown-body .highlight .tag,
+    .markdown-body .highlight .name,
+    .markdown-body .highlight .selector-id,
+    .markdown-body .highlight .selector-class,
+    .markdown-body .highlight .meta,
+    .markdown-body .highlight .hljs-tag {
+        @apply text-teal-600;
+    }
+
+    .dark .markdown-body .highlight .tag,
+    .dark .markdown-body .highlight .name,
+    .dark .markdown-body .highlight .selector-id,
+    .dark .markdown-body .highlight .selector-class,
+    .dark .markdown-body .highlight .meta,
+    .dark .markdown-body .highlight .hljs-tag {
+        @apply text-teal-400;
+    }
+
+    /* 高亮行（如果你手動加 .highlight-line） */
+    .markdown-body .highlight-line {
+        @apply bg-amber-100 -mx-4 px-4;
+    }
+
+    .dark .markdown-body .highlight-line {
+        @apply bg-amber-800/50;
+    }
+}
